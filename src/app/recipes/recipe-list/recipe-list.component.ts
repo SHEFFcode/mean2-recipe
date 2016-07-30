@@ -10,7 +10,7 @@ import {RecipeItemComponent} from "./recipe-item.component";
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
-  @Output recipeSelected = new EventEmitter<Recipe>();
+  @Output() recipeSelected = new EventEmitter<Recipe>();
   recipe = new Recipe('Dummy', 'Dummy', 'http://guides.global/images/guides/global/dummy_web_page.jpg');
 
   constructor() { }
