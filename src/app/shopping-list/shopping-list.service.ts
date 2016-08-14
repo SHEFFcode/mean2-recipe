@@ -12,4 +12,9 @@ export class ShoppingListService {
     Array.prototype.push.apply(this.items, items);
   }
 
+  addItem(item: Ingredient) {
+    console.log(item);
+    this.items.push(item);
+  }
+
 }
