@@ -11,11 +11,6 @@ export class ShoppingListAddComponent implements OnInit {
   isAdd = true;
   item: Ingredient;
 
-  form: any = {
-    name: '',
-    value: ''
-  }
-
   constructor(private sls: ShoppingListService) { }
 
   ngOnInit() {
