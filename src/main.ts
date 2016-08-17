@@ -3,9 +3,10 @@ import { enableProdMode } from '@angular/core';
 import { AppComponent, environment } from './app/';
 import {ShoppingListService} from "./app/shopping-list/shopping-list.service";
 import {APP_ROUTES_PROVIDERS} from "./app/app.routes";
+import { disableDeprecatedForms, provideForms } from "@angular/forms"; // add this import
 
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(AppComponent, [ShoppingListService, APP_ROUTES_PROVIDERS]);
+bootstrap(AppComponent, [ShoppingListService, APP_ROUTES_PROVIDERS, disableDeprecatedForms(), provideForms()]);
