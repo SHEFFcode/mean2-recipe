@@ -3,13 +3,14 @@ import {ActivatedRoute} from "@angular/router";
 import {RecipeService} from "../recipe.service";
 import {Subscription} from "rxjs";
 import {Recipe} from "../recipe";
-import {FormArray, FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
+import {FormArray, FormGroup, FormControl, Validators, FormBuilder, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 @Component({
   moduleId: module.id,
   selector: 'js-recipe-edit',
   templateUrl: 'recipe-edit.component.html',
-  styles: []
+  styles: [],
+  directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
   recipeForm: FormGroup;
@@ -33,7 +34,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         this.isNew = true;
         this.recipe = null;
       }
-      // console.log(this.isNew);
+      this.initForm();
     });
   }
 
@@ -41,25 +42,27 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private initForm(isNew: boolean){
+  private initForm(){
     let recipeName = '';
     let recipeImageUrl = '';
     let recipeContent = '';
     let recipeIngredients: FormArray = new FormArray([]);
 
-    if (!isNew) {
+    if (!this.isNew) {
       this.recipe.ingredients.forEach(
         (ingredient) => {
+          console.log(ingredient);
           recipeIngredients.push(new FormGroup({
             name: new FormControl(ingredient.name, Validators.required),
             amount: new FormControl(ingredient.amount, [Validators.required, Validators.pattern('\\d+')])
           }));
         }
       );
+      console.log(this.recipe);
+      recipeName = this.recipe.name;
+      recipeImageUrl = this.recipe.imagePath;
+      recipeContent = this.recipe.description;
     }
-    recipeName = this.recipe.name;
-    recipeImageUrl = this.recipe.imagePath;
-    recipeContent = this.recipe.description;
     this.recipeForm = this.formBuilder.group({
       name: [recipeName, Validators.required],
       imagePath: [recipeImageUrl, Validators.required],
