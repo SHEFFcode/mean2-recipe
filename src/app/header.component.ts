@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Dropdown} from "./dropdown.directive";
 import {ROUTER_DIRECTIVES} from "@angular/router";
+import {RecipeService} from "./recipes/recipe.service";
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,18 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
+
+  onStore() {
+    this.recipeService.storeData().subscribe(
+      (data) => console.log(data),
+      (error) => console.log(error)
+    );
+  }
+
+  onFetch() {
+
+  }
 
   ngOnInit() {
   }
